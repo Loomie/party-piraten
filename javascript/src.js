@@ -1,5 +1,6 @@
 
 const codeInput = document.getElementById("code-input");
+const codeDisplay = document.getElementById("code-display");
 const artistSpan = document.getElementById("artist");
 const yearSpan = document.getElementById("year");
 const titleSpan = document.getElementById("title");
@@ -15,24 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 // Formatierung Code Input
-codeInput.addEventListener("input", function() {
+function updateCodeDisplay() {
     // Nur Zahlen behalten
-    let rawValue = this.value.replace(/\D/g, "").slice(0, 6);
-    // Raw value in data attribute speichern
-    this.dataset.rawValue = rawValue;
+    let cleanValue = codeInput.value.replace(/\D/g, "").slice(0, 6);
+    // Clean value direkt in input speichern
+    codeInput.value = cleanValue;
     // Display value mit Leerzeichen formatieren
-    let displayValue = rawValue;
+    let displayValue = cleanValue;
     if (displayValue.length > 3) {
         displayValue = displayValue.slice(0, 3) + " " + displayValue.slice(3);
     }
-    this.value = displayValue;
-});
+    // Display aktualisieren
+    codeDisplay.textContent = displayValue;
+}
+
+codeInput.addEventListener("keyup", updateCodeDisplay);
+codeInput.addEventListener("input", updateCodeDisplay);
 
 function startPlay() {
     showDiv(loadingSpinner);
     console.clear(); // avoid flooding
     stopPlayer();
-    const searchCode = codeInput.dataset.rawValue || "";
+    const searchCode = codeInput.value;
     getEntry(searchCode).then(entry => {
         if(!jsonLoaded) {
             showMessage("JSON konnte nicht geladen werden");
@@ -82,7 +87,7 @@ function hideMessageDiv() {
 
 function clearInput() {
     codeInput.value = "";
-    codeInput.dataset.rawValue = "";
+    codeDisplay.textContent = "";
     hideMessageDiv();
     codeInput.focus();
 }

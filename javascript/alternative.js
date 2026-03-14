@@ -37,7 +37,6 @@ function drawRandomCode() {
 
     // Code holen
     let code = remainingCodes[randomIndex];
-    let displayCode = code.slice(0, 3) + " " + code.slice(3);
 
     // Aus Liste entfernen (damit er nicht nochmal gezogen wird)
     remainingCodes.splice(randomIndex, 1);
@@ -45,8 +44,8 @@ function drawRandomCode() {
     // Status anzeigen
     document.getElementById("count").textContent = remainingCodes.length.toString();
 
-    codeInput.dataset.rawValue = code;
-    codeInput.value = displayCode;
+    codeInput.value = code;
+    codeDisplay.textContent = code.slice(0, 3) + " " + code.slice(3);
     startPlay();
 }
 

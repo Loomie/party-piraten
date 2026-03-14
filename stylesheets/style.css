@@ -1,0 +1,20 @@
+/* Ensure input text stays transparent when focused */
+#code-input {
+    color: transparent !important;
+}
+
+#code-input:focus {
+    color: transparent !important;
+    outline: none;
+}
+
+/* Ensure code display stays visible when input has focus */
+#code-display {
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Bootstrap overrides for input appearance */
+.form-control:focus {
+    color: transparent;
+}

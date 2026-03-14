@@ -14,6 +14,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="stylesheets/style.css">
+
     <!-- Scripts -->
     <script src="javascript/src.js" defer></script>
     <script src="javascript/video.js" defer></script>
@@ -42,8 +45,9 @@
                     <h5 class="card-title">Code</h5>
 
                     <form onsubmit="startPlay(); return false;">
-                        <div class="input-group mb-3">
-                            <input id="code-input" inputmode="numeric" class="form-control" placeholder="123 456" aria-label="Code" aria-describedby="close-btn-span">
+                        <div class="input-group mb-3 position-relative">
+                            <input id="code-input" inputmode="numeric" class="form-control" placeholder="000 000" aria-label="Code" aria-describedby="close-btn-span" style="color: transparent; caret-color: var(--bs-body-color);">
+                            <div id="code-display" class="position-absolute top-50 translate-middle-y ps-3" style="pointer-events: none; color: var(--bs-body-color); font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size); line-height: var(--bs-body-line-height); letter-spacing: 0.05em;"></div>
                             <span id="close-btn-span" class="input-group-text">
                                 <button id="clear-button" class="btn-close" onclick="clearInput()" type="button" aria-label="Close"></button>
                             </span>
