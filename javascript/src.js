@@ -17,19 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
 // Formatierung Code Input
 codeInput.addEventListener("input", function() {
     // Nur Zahlen behalten
-    let value = this.value.replace(/\D/g, "").slice(0, 6);
-    // Nach der 3. Zahl ein Leerzeichen einfügen
-    if (value.length > 3) {
-        value = value.slice(0, 3) + " " + value.slice(3);
+    let rawValue = this.value.replace(/\D/g, "").slice(0, 6);
+    // Raw value in data attribute speichern
+    this.dataset.rawValue = rawValue;
+    // Display value mit Leerzeichen formatieren
+    let displayValue = rawValue;
+    if (displayValue.length > 3) {
+        displayValue = displayValue.slice(0, 3) + " " + displayValue.slice(3);
     }
-    this.value = value;
+    this.value = displayValue;
 });
 
 function startPlay() {
     showDiv(loadingSpinner);
     console.clear(); // avoid flooding
     stopPlayer();
-    const searchCode = codeInput.value.replace(" ", "");
+    const searchCode = codeInput.dataset.rawValue || "";
     getEntry(searchCode).then(entry => {
         if(!jsonLoaded) {
             showMessage("JSON konnte nicht geladen werden");
@@ -79,6 +82,7 @@ function hideMessageDiv() {
 
 function clearInput() {
     codeInput.value = "";
+    codeInput.dataset.rawValue = "";
     hideMessageDiv();
     codeInput.focus();
 }
