@@ -43,7 +43,8 @@
 
                     <form onsubmit="startPlay(); return false;">
                         <div class="input-group mb-3">
-                            <input id="code-input" inputmode="numeric" class="form-control" placeholder="123 456" aria-label="Code" aria-describedby="close-btn-span">
+                            <input id="code-input-1" inputmode="numeric" class="form-control" placeholder="123" maxlength="3" aria-label="Code Part 1" aria-describedby="close-btn-span">
+                            <input id="code-input-2" inputmode="numeric" class="form-control" placeholder="456" maxlength="3" aria-label="Code Part 2" aria-describedby="close-btn-span">
                             <span id="close-btn-span" class="input-group-text">
                                 <button id="clear-button" class="btn-close" onclick="clearInput()" type="button" aria-label="Close"></button>
                             </span>

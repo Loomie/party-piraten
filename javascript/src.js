@@ -1,5 +1,6 @@
 
-const codeInput = document.getElementById("code-input");
+const codeInput1 = document.getElementById("code-input-1");
+const codeInput2 = document.getElementById("code-input-2");
 const artistSpan = document.getElementById("artist");
 const yearSpan = document.getElementById("year");
 const titleSpan = document.getElementById("title");
@@ -14,25 +15,29 @@ document.addEventListener("DOMContentLoaded", () => {
     disableControlButtons();
 })
 
-// Formatierung Code Input
-codeInput.addEventListener("input", function() {
+// Formatierung Code Input Part 1
+codeInput1.addEventListener("input", function() {
     // Nur Zahlen behalten
-    let rawValue = this.value.replace(/\D/g, "").slice(0, 6);
-    // Raw value in data attribute speichern
-    this.dataset.rawValue = rawValue;
-    // Display value mit Leerzeichen formatieren
-    let displayValue = rawValue;
-    if (displayValue.length > 3) {
-        displayValue = displayValue.slice(0, 3) + " " + displayValue.slice(3);
+    let value = this.value.replace(/\D/g, "").slice(0, 3);
+    this.value = value;
+    // Auto-focus zu Part 2 nach 3 Ziffern
+    if (value.length === 3) {
+        codeInput2.focus();
     }
-    this.value = displayValue;
+});
+
+// Formatierung Code Input Part 2
+codeInput2.addEventListener("input", function() {
+    // Nur Zahlen behalten
+    let value = this.value.replace(/\D/g, "").slice(0, 3);
+    this.value = value;
 });
 
 function startPlay() {
     showDiv(loadingSpinner);
     console.clear(); // avoid flooding
     stopPlayer();
-    const searchCode = codeInput.dataset.rawValue || "";
+    const searchCode = (codeInput1.value + codeInput2.value) || "";
     getEntry(searchCode).then(entry => {
         if(!jsonLoaded) {
             showMessage("JSON konnte nicht geladen werden");
@@ -81,10 +86,10 @@ function hideMessageDiv() {
 }
 
 function clearInput() {
-    codeInput.value = "";
-    codeInput.dataset.rawValue = "";
+    codeInput1.value = "";
+    codeInput2.value = "";
     hideMessageDiv();
-    codeInput.focus();
+    codeInput1.focus();
 }
 
 function hideConclusion() {
